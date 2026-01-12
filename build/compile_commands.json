@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/yyy/Projects/Pure-Cpp-DL/build",
+  "command": "/usr/bin/g++  -I/home/yyy/Projects/Pure-Cpp-DL/include -g -std=gnu++17 -o CMakeFiles/main.dir/src/main.cpp.o -c /home/yyy/Projects/Pure-Cpp-DL/src/main.cpp",
+  "file": "/home/yyy/Projects/Pure-Cpp-DL/src/main.cpp",
+  "output": "CMakeFiles/main.dir/src/main.cpp.o"
+}
+]
