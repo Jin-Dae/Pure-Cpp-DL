@@ -9,11 +9,12 @@
 
 class Matrix {
 private:
-    int rows;
-    int cols;
+
     std::vector<double> data; // 1차원으로 펴서 저장
 
-public:
+public:    
+    int rows;
+    int cols;
     // 생성자
     Matrix(int rows, int cols);
 
@@ -37,6 +38,9 @@ public:
     
     // 전치 (Transpose)
     Matrix transpose() const;
+
+    // 출력
+    friend std::ostream& operator<<(std::ostream& os, const Matrix& m);
 };
 
 #endif

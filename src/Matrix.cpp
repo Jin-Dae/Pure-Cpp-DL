@@ -154,3 +154,15 @@ Matrix Matrix::transpose() const
     }
     return result;
 }
+
+// 10. 행렬 출력 기능 
+std::ostream& operator<<(std::ostream& os, const Matrix& m) {
+    for (int i = 0; i < m.rows; ++i) {
+        os << "[ ";
+        for (int j = 0; j < m.cols; ++j) {
+            os << m(i, j) << " ";
+        }
+        os << "]\n";
+    }
+    return os;
+}
