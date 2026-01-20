@@ -35,6 +35,7 @@ public:
     Matrix operator-(const Matrix& other) const;
     Matrix operator*(const Matrix& other) const; // 행렬 곱
     Matrix operator*(double scalar) const;       // 스칼라 곱
+    Matrix hadamard(const Matrix& other) const;       // 원소별 곱셈 (Element-wise)
     
     // 전치 (Transpose)
     Matrix transpose() const;

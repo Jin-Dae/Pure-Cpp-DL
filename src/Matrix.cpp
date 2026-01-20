@@ -166,3 +166,16 @@ std::ostream& operator<<(std::ostream& os, const Matrix& m) {
     }
     return os;
 }
+
+// 11. 아다마르 곱 (원소별 곱셈) 구현 (Error * Derivative)
+// 주의: 일반 행렬 곱(*)과 다름! 단순히 같은 위치끼리만 곱함.
+Matrix Matrix::hadamard(const Matrix& other) const {
+    if (rows != other.rows || cols != other.cols) {
+        throw std::invalid_argument("Hadamard product size mismatch!");
+    }
+    Matrix result(rows, cols);
+    for (int i = 0; i < rows * cols; ++i) {
+        result.data[i] = data[i] * other.data[i];
+    }
+    return result;
+}
