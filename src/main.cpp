@@ -1,29 +1,65 @@
-// src/main.cpp
 #include <iostream>
 #include "Matrix.h"
 #include "Activation.h"
 
 int main() {
     try {
-        // 1. 테스트용 2x2 행렬 생성
-        Matrix input(2, 2);
-        input(0, 0) = 1.0;   // 양수
-        input(0, 1) = -2.0;  // 음수
-        input(1, 0) = 0.5;   // 작은 양수
-        input(1, 1) = -0.1;  // 작은 음수
+        std::cout << "=== Day 3: Forward Propagation Simulation ===" << std::endl;
 
-        std::cout << "=== Original Input ===" << std::endl;
-        std::cout << input << std::endl;
+        // -----------------------------------------
+        // 1. 데이터 준비 (Input Layer)
+        // -----------------------------------------
+        // 입력 데이터 (1x2): [0.9, 0.1]
+        Matrix X(1, 2);
+        X(0, 0) = 0.9; 
+        X(0, 1) = 0.1;
 
-        // 2. ReLU 테스트 (음수가 사라져야 함)
-        Matrix relu_out = Activation::relu(input);
-        std::cout << "=== After ReLU (Negative -> 0) ===" << std::endl;
-        std::cout << relu_out << std::endl;
+        std::cout << "[Input X]" << std::endl;
+        std::cout << X << std::endl;
 
-        // 3. Sigmoid 테스트 (모두 0~1 사이로 변해야 함)
-        Matrix sigmoid_out = Activation::sigmoid(input);
-        std::cout << "=== After Sigmoid (Squeezed 0~1) ===" << std::endl;
-        std::cout << sigmoid_out << std::endl;
+        // -----------------------------------------
+        // 2. 은닉층 계산 (Hidden Layer)
+        // -----------------------------------------
+        // 가중치 W1 (2x3): 입력 2개를 은닉 3개로 연결
+        Matrix W1(2, 3);
+        W1(0,0) = 0.5; W1(0,1) = -0.3; W1(0,2) = 0.8;
+        W1(1,0) = 0.2; W1(1,1) = 0.4;  W1(1,2) = -0.1;
+
+        // 편향 B1 (1x3): 은닉 뉴런 3개 각각에 더해줄 값
+        Matrix B1(1, 3);
+        B1(0,0) = 0.1; B1(0,1) = 0.1; B1(0,2) = 0.1;
+
+        // 계산: Z1 = X * W1 + B1
+        Matrix Z1 = (X * W1) + B1;
+        
+        // 활성화: A1 = ReLU(Z1) (음수는 제거)
+        Matrix A1 = Activation::relu(Z1);
+
+        std::cout << "[Hidden Layer Output (ReLU)]" << std::endl;
+        std::cout << A1 << std::endl;
+
+        // -----------------------------------------
+        // 3. 출력층 계산 (Output Layer)
+        // -----------------------------------------
+        // 가중치 W2 (3x1): 은닉 3개를 출력 1개로 연결
+        Matrix W2(3, 1);
+        W2(0,0) = 0.5; 
+        W2(1,0) = -0.5; 
+        W2(2,0) = 1.0;
+
+        // 편향 B2 (1x1)
+        Matrix B2(1, 1);
+        B2(0,0) = -0.2;
+
+        // 계산: Z2 = A1 * W2 + B2 (은닉층의 결과 A1이 입력이 됨)
+        Matrix Z2 = (A1 * W2) + B2;
+
+        // 활성화: Output = Sigmoid(Z2) (0~1 확률값 변환)
+        Matrix Output = Activation::sigmoid(Z2);
+
+        std::cout << "[Final Prediction (Sigmoid)]" << std::endl;
+        std::cout << Output << std::endl;
+
 
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
